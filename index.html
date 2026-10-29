@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>apna campus — campus management</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="auth" class="auth">
+ <section class="auth-art"><div class="logo"><span>apna</span><b>campus</b><small>campus management</small></div><div class="art-copy"><small>YOUR CAMPUS. YOUR COMMUNITY.</small><h1>Small voices.<br><em>Big change.</em></h1><p>Spot a problem. Support a neighbour. Make campus life better — together.</p></div><footer><i></i> A better campus starts with us.</footer></section>
+ <section class="auth-panel"><div class="mobile-logo">apna <b>campus</b></div><a class="auth-staff-link" href="staff.html" target="_blank" rel="noopener">Staff login ↗</a><div class="auth-box">
+  <form id="loginForm" class="auth-form"><small class="kicker">WELCOME BACK</small><h2>Good to see you.</h2><p class="muted">Log in with your username or email.</p>
+   <label>Username or email</label><input id="loginIdentity" autocomplete="username" placeholder="Your username or email" required>
+   <label>Password</label><div class="pass"><input id="loginPassword" type="password" autocomplete="current-password" placeholder="Your password" required><button type="button" data-show="loginPassword">Show</button></div>
+   <p id="loginError" class="error"></p><button class="btn dark full">Log in <span>↗</span></button><p class="switch">New here? <button type="button" data-auth="signup">Create an account</button></p>
+  </form>
+  <form id="signupForm" class="auth-form hidden"><small class="kicker">JOIN THE COMMUNITY</small><h2>Make it yours.</h2><p class="muted">Create your Apna Campus account.</p>
+   <label>Full name</label><input id="signName" maxlength="70" placeholder="Your name" required>
+   <label>Username</label><input id="signUsername" minlength="3" maxlength="20" pattern="[A-Za-z0-9_.-]+" placeholder="Choose a unique username" required><small id="usernameHint" class="hint">3–20 characters: letters, numbers, . _ -</small>
+   <label>College / university</label>
+   <div class="college-picker">
+    <input id="collegeSearch" type="text" autocomplete="off" placeholder="Search your college name…" aria-label="Search college or university" required>
+    <input id="signCollege" type="hidden" value="">
+    <input id="signCollegeCity" type="hidden" value="">
+    <input id="signCollegeState" type="hidden" value="">
+    <div id="collegeResults" class="college-results hidden" role="listbox" aria-label="College search results"></div>
+   </div>
+   <small id="collegeHint" class="hint">Type to instantly search popular colleges. You can enter any other college manually.</small>
+   <label>Email address</label><input id="signEmail" type="email" placeholder="you@college.edu" required>
+   <label>Password</label><div class="pass"><input id="signPassword" type="password" minlength="8" placeholder="At least 8 characters" required><button type="button" data-show="signPassword">Show</button></div>
+   <label>Confirm password</label><input id="signConfirm" type="password" minlength="8" placeholder="Enter password again" required>
+   <p id="signError" class="error"></p><button class="btn dark full">Create account <span>↗</span></button><p class="switch">Already a member? <button type="button" data-auth="login">Log in</button></p>
+  </form><p class="privacy">Prototype note: accounts and issues are stored in this browser only.</p>
+ </div></section>
+</div>
+<div id="app" class="app hidden">
+ <aside class="sidebar"><a class="side-logo" href="#" data-page="home"><span>apna</span><b>campus</b><small>campus management</small></a><p class="side-label">YOUR SPACE</p>
+  <nav><button class="nav active" data-page="home"><span>⌂</span> Overview</button><button class="nav" data-page="create"><span>＋</span> Report an issue</button><button class="nav" data-page="mine"><span>▤</span> My issues <i id="myCount">0</i></button><button class="nav" data-page="all"><span>◉</span> All issues</button></nav>
+  <div class="side-bottom"><div class="side-note"><b>✳ Better, together.</b><p>One helpful vote can move a campus problem forward.</p></div><button id="logout" class="logout">↗ &nbsp; Log out</button></div>
+ </aside>
+ <main class="main"><header class="topbar"><div><small>APNA CAMPUS&nbsp; / &nbsp;<b id="crumb">Overview</b></small><p id="welcome">Hey there, welcome back.</p></div><div class="user"><a id="staffToggle" class="staff-toggle" href="staff.html" target="_blank" rel="noopener">Staff ↗</a><button id="theme" class="theme" title="Toggle theme">◐</button><span id="avatar" class="avatar">A</span><div><b id="profileName">Member</b><small id="profileUser">@member</small></div></div></header>
+ <div class="content">
+  <section id="page-home" class="page"><div class="hero"><div class="hero-text"><small class="kicker">CAMPUS, IN YOUR HANDS</small><h1>Let’s make campus<br><em>a little better.</em></h1><p>See an issue? Share it. See someone’s issue? Give it a vote. Change happens when we show up.</p><button class="btn dark" data-page="create">Report a problem <span>↗</span></button></div><div class="hero-graphic"><div class="sun"></div><div class="float-card one"><b>✳ &nbsp; Spotted it.</b><small>Report a problem</small></div><div class="float-card two"><b>↑ &nbsp; Back it up.</b><small>Vote for a fix</small></div><div class="orbit"></div></div></div>
+   <div class="section-head"><div><small class="kicker">THE CAMPUS PULSE</small><h2>Issues at a glance</h2></div><button class="link" data-page="all">Explore all issues ↗</button></div>
+   <div class="stats"><article class="stat featured"><small>Community issues</small><strong id="total">0</strong><span>Shared by students</span></article><article class="stat"><small>Need attention</small><strong id="pending">0</strong><span>Waiting for a fix</span></article><article class="stat"><small>Resolved</small><strong id="solved">0</strong><span>Marked as solved</span></article><article class="stat"><small>Your support</small><strong id="myVotes">0</strong><span>Votes you have given</span></article></div>
+   <div class="section-head"><div><small class="kicker">FROM YOUR COMMUNITY</small><h2>Getting attention</h2></div><span class="live"><i></i> Community board</span></div><div id="homeIssues" class="cards"></div><div id="homeEmpty" class="empty hidden"><b>It's quiet around here.</b><p>Be the first to report something that needs attention.</p><button class="btn dark" data-page="create">Report first issue ↗</button></div>
+  </section>
+  <section id="page-create" class="page hidden"><div class="intro"><small class="kicker">SPEAK UP, MAKE CHANGE</small><h1>Report an issue.</h1><p>Give the community enough detail to understand what needs fixing.</p></div><div class="form-layout"><form id="issueForm" class="surface form"><div class="form-title"><span>01</span><div><b>The basics</b><small>What’s happening on campus?</small></div></div>
+   <label>Issue title *</label><input id="title" required maxlength="90" placeholder="e.g. Water cooler not working"><label>Describe the issue *</label><textarea id="description" required maxlength="1200" rows="5" placeholder="Where is it? When did you notice it?"></textarea><div class="ai-assist-row"><span class="ai-note">Need help wording it?</span><button type="button" id="aiImprove" class="ai-assist-btn">✦ Improve with AI</button></div><p id="aiImproveStatus" class="ai-status" aria-live="polite"></p>
+   <div class="photo-upload-block"><label for="issuePhoto">Add a photo <span style="font-weight:500;color:var(--muted)">(optional)</span></label><p class="photo-help">A photo helps your campus community understand the problem faster.</p><div class="photo-dropzone" id="photoDropzone" role="button" tabindex="0" aria-label="Choose or drop a photo to attach"><div class="photo-drop-icon" aria-hidden="true">↥</div><div class="photo-drop-copy"><strong>Drag a photo here, or browse files</strong><span>JPG, PNG or WebP · Maximum 8 MB</span></div><button type="button" class="photo-browse-btn" id="browsePhoto">Choose photo</button><input id="issuePhoto" type="file" accept="image/jpeg,image/png,image/webp" aria-label="Choose issue photo"></div><div id="photoPreviewWrap" class="photo-preview-wrap hidden"><img id="photoPreview" alt="Selected issue photo preview"><div class="photo-preview-meta"><strong id="photoFileName">Selected photo</strong><span id="photoFileSize">Ready to attach</span></div><button type="button" id="removePhoto" class="remove-photo">Remove</button></div><p id="photoStatus" class="ai-status" aria-live="polite"></p></div>
+   <div class="row"><div><label>Category *</label><select id="category" required><option value="">Choose category</option><option>Cleanliness</option><option>Electricity</option><option>Internet</option><option>Plumbing & Water</option><option>Classroom</option><option>Safety</option><option>Hostel</option><option>Other</option></select></div><div><label>Location *</label><input id="location" required maxlength="100" placeholder="Block, floor, room"></div></div>
+   <div class="form-title second"><span>02</span><div><b>Help us prioritise</b><small>How much attention does it need?</small></div></div><label>Initial priority</label><select id="priority"><option>Normal</option><option>High</option><option>Urgent</option></select><div class="form-foot"><small>* Required fields</small><button class="btn dark">Publish issue <span>↗</span></button></div>
+  </form><aside class="tips"><b>✳ Your voice matters.</b><p>Clear details help others understand the issue and support it.</p><hr><small>QUICK TIPS</small><p>✓ Choose the right location<br>✓ Keep the title specific<br>✓ Be respectful and factual</p></aside></div></section>
+  <section id="page-mine" class="page hidden"><div class="intro"><small class="kicker">YOUR CONTRIBUTION</small><h1>My issues.</h1><p>Keep an eye on the things you’ve raised with the community.</p></div><div class="filterbar"><div class="tabs"><button class="filter active" data-mine="all">All <i id="mineAll">0</i></button><button class="filter" data-mine="pending">Pending <i id="minePending">0</i></button><button class="filter" data-mine="solved">Solved <i id="mineSolved">0</i></button></div><select id="mineSort"><option value="newest">Newest first</option><option value="votes">Most supported</option></select></div><div id="mineIssues" class="list"></div><div id="mineEmpty" class="empty hidden"><b>No issues here yet.</b><p>Your reported issues will show up here.</p><button class="btn dark" data-page="create">Report an issue ↗</button></div></section>
+  <section id="page-all" class="page hidden"><div class="intro"><small class="kicker">ONE CAMPUS, MANY VOICES</small><h1>All issues.</h1><p>Browse reports from your community. Vote to help show which problems need attention first.</p></div><div class="summary"><div><i class="dot amber"></i><b id="allPendingNum">0</b><small>Need attention</small></div><div><i class="dot green"></i><b id="allSolvedNum">0</b><small>Resolved</small></div><p>↑ Vote once per issue. Change your mind any time.</p></div><div class="filterbar allbar"><div class="tabs"><button class="filter active" data-all="all">All issues</button><button class="filter" data-all="pending">Pending <i id="allPendingCount">0</i></button><button class="filter" data-all="solved">Solved <i id="allSolvedCount">0</i></button></div><div class="tools"><input id="search" placeholder="Search issues…"><select id="categoryFilter"><option value="all">All categories</option><option>Cleanliness</option><option>Electricity</option><option>Internet</option><option>Plumbing & Water</option><option>Classroom</option><option>Safety</option><option>Hostel</option><option>Other</option></select><select id="allSort"><option value="votes">Most supported</option><option value="newest">Newest first</option></select></div></div><div class="columns"><section><div class="column-head"><h2>Needs attention</h2><i id="pendingColumn">0</i></div><div id="pendingList" class="list"></div></section><section><div class="column-head"><h2>Resolved</h2><i id="solvedColumn">0</i></div><div id="solvedList" class="list"></div></section></div><div id="allEmpty" class="empty hidden"><b>No matching issues.</b><p>Try another search or filter.</p></div></section>
+ </div><footer class="app-footer"><b>apna campus</b><span>Made better, together. ✳</span></footer></main>
+</div>
+<button id="chatLauncher" class="chat-launcher" aria-label="Open ApnaCampus AI assistant"><span class="chat-spark">✦</span><span>Ask Campus AI</span><i class="chat-launcher-dot"></i></button>
+<div id="staffPortal" class="staff-portal hidden" aria-labelledby="staffTitle">
+ <section class="staff-login-card">
+  <div class="staff-mark">apna <b>campus</b></div>
+  <small class="kicker">RESTRICTED ACCESS</small>
+  <h1 id="staffTitle">Staff login.</h1>
+  <p class="muted">Sign in to manage campus issue status.</p>
+  <form id="staffLoginForm">
+   <label for="staffUsername">Staff username</label><input id="staffUsername" autocomplete="username" placeholder="Staff username" required>
+   <label for="staffPassword">Password</label><div class="pass"><input id="staffPassword" type="password" autocomplete="current-password" placeholder="Staff password" required><button type="button" data-show="staffPassword">Show</button></div>
+   <p id="staffLoginError" class="error" aria-live="polite"></p>
+   <button class="btn dark full" type="submit">Log in as staff <span>↗</span></button>
+  </form>
+  <button id="staffBack" class="staff-back" type="button">← Back to campus</button>
+ </section>
+</div>
+ <section id="chatPanel" class="chat-panel hidden" aria-label="Campus AI assistant" aria-modal="false" role="dialog">
+  <header class="chat-header"><div class="chat-avatar">✦</div><div class="chat-head-copy"><b>Campus AI</b><small><i></i> Live page-aware helper</small><span id="chatContextLabel" class="chat-context">Seeing: Login</span></div><button id="chatClose" class="chat-close" aria-label="Close assistant">×</button></header>
+  <div id="chatMessages" class="chat-messages" aria-live="polite"><div class="chat-message bot"><span class="message-avatar">✦</span><div class="message-bubble"><b>Hey! I'm Campus AI.</b><p>I can use the current ApnaCampus page and its relevant fields to guide you step by step. Ask me what to do next, or how to use anything on this screen.</p><div class="chat-suggestions"><button type="button" data-prompt="Help me write a good campus issue report">Help me report an issue</button><button type="button" data-prompt="How does issue voting work?">How does voting work?</button><button type="button" data-prompt="Look at the page I am on and tell me what I should do next.">What should I do on this page?</button></div></div></div></div>
+  <form id="chatForm" class="chat-compose"><textarea id="chatInput" rows="1" maxlength="1200" placeholder="Ask me anything…" aria-label="Message Campus AI" required></textarea><button id="chatSend" type="submit" aria-label="Send message">↑</button></form><p class="chat-disclaimer">AI can make mistakes. Don't share passwords or sensitive details.</p>
+ </section>
+ <div id="toast" class="toast"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="script.js"></script>
+</body></html>

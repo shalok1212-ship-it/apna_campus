@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width,initial-scale=1">
+ <meta name="theme-color" content="#f7f7f9">
+ <title>Staff portal — Apna Campus</title>
+ <link rel="stylesheet" href="style.css">
+</head>
+<body class="staff-page">
+ <main class="staff-shell">
+  <header class="staff-header">
+   <a class="staff-brand" href="index.html"><span>apna</span><b>campus</b><small>STAFF PORTAL</small></a>
+   <a class="staff-back-link" href="index.html">← Back to campus</a>
+  </header>
+  <section id="staffLoginView" class="staff-login-view">
+   <div class="staff-login-card">
+    <small class="kicker">RESTRICTED ACCESS</small>
+    <h1>Staff login.</h1>
+    <p class="muted">Sign in to review reports and update campus issue status.</p>
+    <form id="staffLoginForm">
+     <label for="staffUsername">Staff username</label>
+     <input id="staffUsername" autocomplete="username" placeholder="Staff username" required>
+     <label for="staffPassword">Password</label>
+     <div class="pass">
+      <input id="staffPassword" type="password" autocomplete="current-password" placeholder="Staff password" required>
+      <button type="button" data-show="staffPassword">Show</button>
+     </div>
+     <p id="staffLoginError" class="error" role="alert" aria-live="polite"></p>
+     <button class="btn dark full" type="submit">Log in as staff <span>↗</span></button>
+    </form>
+   </div>
+  </section>
+  <section id="staffDashboard" class="staff-dashboard hidden">
+   <div class="staff-page-intro">
+    <div>
+     <small class="kicker">CAMPUS OPERATIONS</small>
+     <h1>Issue desk.</h1>
+     <p>Review community reports and mark issues resolved when the work is complete.</p>
+    </div>
+    <button id="staffLogout" class="staff-logout" type="button">Log out</button>
+   </div>
+   <div class="staff-summary">
+    <article><small>Total reports</small><strong id="staffTotal">0</strong></article>
+    <article><small>Needs attention</small><strong id="staffPending">0</strong></article>
+    <article><small>Resolved</small><strong id="staffResolved">0</strong></article>
+   </div>
+   <div class="staff-tools">
+    <div class="tabs" role="group" aria-label="Filter issues by status">
+     <button class="filter active" type="button" data-status="all">All reports</button>
+     <button class="filter" type="button" data-status="pending">Pending <i id="staffPendingTab">0</i></button>
+     <button class="filter" type="button" data-status="resolved">Resolved <i id="staffResolvedTab">0</i></button>
+    </div>
+    <input id="staffSearch" type="search" placeholder="Search reports…" aria-label="Search issues">
+   </div>
+   <p id="staffMessage" class="staff-message" role="status" aria-live="polite"></p>
+   <div id="staffIssues" class="staff-issues" aria-live="polite"></div>
+   <div id="staffEmpty" class="empty hidden"><b>No reports match.</b><p>Try another filter or search term.</p></div>
+  </section>
+  <footer class="staff-footer"><b>apna campus</b><span>Staff portal · Issue management</span></footer>
+ </main>
+ <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+ <script src="staff.js"></script>
+</body>
+</html>
